@@ -1,0 +1,33 @@
+{
+  "id": "dbe16b51-11ee-4b11-ac2e-96fd978f77f0",
+  "name": "Community Questions",
+  "publisher": "Saurav Dhyani",
+  "brief": "This repo will have suggestions for answers to community questions.",
+  "description": "",
+  "version": "21.0.0.0",
+  "runtime": "10.0",
+  "privacyStatement": "https://www.sauravdhyani.com/",
+  "EULA": "https://www.sauravdhyani.com/",
+  "help": "https://www.sauravdhyani.com/contact/",
+  "contextSensitiveHelpUrl": "https://www.sauravdhyani.com/",
+  "url": "https://www.sauravdhyani.com/",
+  "logo": "image/sauravdhyani.png",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "14.0.0.0",
+  "application": "14.0.0.0",
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 99999
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },  
+  "features": [
+    "NoImplicitWith"
+  ]
+}
