@@ -4,4 +4,13 @@ This repo stores all sample code related to community questions posted in differ
 ## **Question 1 - RDLC - pass value as parameter**
 
 ### [Question](https://community.dynamics.com/business/f/dynamics-365-business-central-forum/475295/rdlc---pass-value-as-parameter)
-### [Output] Report 50000 "SDH Group By Demo"
+### Source Code - Refer Generic Grouping - Report.
+
+### [Youtube Video](https://youtu.be/y6ZTfDVM78A)
+## **Question 2 - Customize Posting Preview**
+### Source Code - Posting Preview Customization.
+### [Youtube Video](https://youtu.be/wRkgLfrIivQ)
+
+## **Question 3 - Flow Data from Master to Ledger**
+### Source Code - Customer To Customer Ledger Entries.
+### [Youtube Video](https://youtu.be/lTCoIYinldI)

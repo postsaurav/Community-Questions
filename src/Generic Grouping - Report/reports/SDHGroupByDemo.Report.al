@@ -2,7 +2,7 @@ report 50000 "SDH Group By Demo"
 {
     ApplicationArea = All;
     Caption = 'Group By Demo';
-    RDLCLayout = '.\src\reports\SDHGroupByDemo.Report.rdlc';
+    RDLCLayout = '.\src\Generic Grouping - Report\reports\SDHGroupByDemo.Report.rdlc';
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
