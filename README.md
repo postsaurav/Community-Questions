@@ -14,3 +14,7 @@ This repo stores all sample code related to community questions posted in differ
 ## **Question 3 - Flow Data from Master to Ledger**
 ### Source Code - Customer To Customer Ledger Entries.
 ### [Youtube Video](https://youtu.be/lTCoIYinldI)
+
+## **Question 4 - Call Azure Functions from AL**
+### Source Code - Call Azure Functions.
+### [Youtube Video](https://youtu.be/DlUeXhYWl0E)
