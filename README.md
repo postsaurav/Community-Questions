@@ -15,6 +15,10 @@ This repo stores all sample code related to community questions posted in differ
 ### Source Code - Customer To Customer Ledger Entries.
 ### [Youtube Video](https://youtu.be/lTCoIYinldI)
 
-## **Question 4 - Call Azure Functions from AL**
+## **Question 4 - Azure Functions from AL**
 ### Source Code - Call Azure Functions.
 ### [Youtube Video](https://youtu.be/DlUeXhYWl0E)
+
+## **Question 5 - Hyperlink in a Report**
+### Source Code - Hyperlink a Page From Report.
+### [Youtube Video](https://youtu.be/KSKj67P028g)
