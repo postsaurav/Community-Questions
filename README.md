@@ -22,3 +22,7 @@ This repo stores all sample code related to community questions posted in differ
 ## **Question 5 - Hyperlink in a Report**
 ### Source Code - Hyperlink a Page From Report.
 ### [Youtube Video](https://youtu.be/KSKj67P028g)
+
+## **Question 6 - Running Total in a Report**
+### Source Code - Running Total in RDLC Report.
+### [Youtube Video]()
