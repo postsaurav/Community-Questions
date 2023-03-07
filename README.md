@@ -5,8 +5,8 @@ This repo stores all sample code related to community questions posted in differ
 
 ### [Question](https://community.dynamics.com/business/f/dynamics-365-business-central-forum/475295/rdlc---pass-value-as-parameter)
 ### Source Code - Refer Generic Grouping - Report.
-
 ### [Youtube Video](https://youtu.be/y6ZTfDVM78A)
+
 ## **Question 2 - Customize Posting Preview**
 ### Source Code - Posting Preview Customization.
 ### [Youtube Video](https://youtu.be/wRkgLfrIivQ)
@@ -25,4 +25,8 @@ This repo stores all sample code related to community questions posted in differ
 
 ## **Question 6 - Running Total in a Report**
 ### Source Code - Running Total in RDLC Report.
-### [Youtube Video]()
+### [Youtube Video](https://youtu.be/yUN5mP1E2h0)
+
+## **Question 7 - Export Json From AL**
+### Source Code - Export Json.
+### [Youtube Video](https://youtu.be/igbpr7LnuSo)
