@@ -30,3 +30,8 @@ This repo stores all sample code related to community questions posted in differ
 ## **Question 7 - Export Json From AL**
 ### Source Code - Export Json.
 ### [Youtube Video](https://youtu.be/igbpr7LnuSo)
+
+## **Question 8 - System Audit Fields**
+### [Question](https://community.dynamics.com/business/f/dynamics-365-business-central-forum/481416/username-based-on-guid-id-in-business-central/1324598)
+### Source Code - System Audit Fields.
+### [Youtube Video](https://youtu.be/AcQJQXDPifI)
