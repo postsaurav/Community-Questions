@@ -35,3 +35,8 @@ This repo stores all sample code related to community questions posted in differ
 ### [Question](https://community.dynamics.com/business/f/dynamics-365-business-central-forum/481416/username-based-on-guid-id-in-business-central/1324598)
 ### Source Code - System Audit Fields.
 ### [Youtube Video](https://youtu.be/AcQJQXDPifI)
+
+## **Question 9 - Customize Email Subject.**
+### Source Code - Customize Email Subject.
+### [Article](https://www.sauravdhyani.com/2023/04/creating-custom-email-subject-in-ms.html)
+### [Youtube Video](https://youtu.be/R27Ivv7aTjw)
