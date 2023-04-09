@@ -11,5 +11,9 @@ permissionset 50000 "SDH Permissions"
         report "SDH Item List" = X,
         report "SDH Running Total Demo" = X,
         codeunit "SDH Sales Posting" = X,
-        page "SDH Azure Function Call" = X;
+        page "SDH Azure Function Call" = X,
+        report "SDH Expiring Items" = X,
+        codeunit "SDH Customize Email Subject" = X,
+        codeunit "SDH Email Expiring Items" = X,
+        codeunit "SDH Export Json" = X;
 }
