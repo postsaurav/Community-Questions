@@ -40,3 +40,10 @@ This repo stores all sample code related to community questions posted in differ
 ### Source Code - Customize Email Subject.
 ### [Article](https://www.sauravdhyani.com/2023/04/creating-custom-email-subject-in-ms.html)
 ### [Youtube Video](https://youtu.be/R27Ivv7aTjw)
+
+## **Question 10 - Expiring Items.**
+### Source Code - Expiring Items.
+### [Youtube Video 1](https://youtu.be/WHv4GV7Lb08) 
+### [Youtube Video 2]() 
+### [Youtube Video 3]() 
+### [Youtube Video 4]()
