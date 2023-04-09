@@ -30,6 +30,19 @@ pageextension 50003 "SDH Customer List" extends "Customer List"
                     ExportJson.ExportSelectedCustomersAsJson(Rec);
                 end;
             }
+            action(TestEmail)
+            {
+                ApplicationArea = all;
+                Image = Email;
+                Caption = 'Test Email';
+                ToolTip = 'Executes the Test Email action.';
+                trigger OnAction()
+                var
+                    EmailExpiringItems: Codeunit "SDH Email Expiring Items";
+                begin
+                    EmailExpiringItems.EmailExpiringItems();
+                end;
+            }
         }
     }
 }

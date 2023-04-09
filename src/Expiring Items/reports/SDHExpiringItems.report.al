@@ -59,6 +59,10 @@ report 50003 "SDH Expiring Items"
     {
         ExpiringInLbl = 'Expiring In..';
     }
+    procedure SetParameters(NewDateForumla: DateFormula)
+    begin
+        TillExpirationDateFormula := NewDateForumla;
+    end;
 
     trigger OnPreReport()
     var
