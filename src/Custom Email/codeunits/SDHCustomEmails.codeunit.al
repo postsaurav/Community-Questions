@@ -29,4 +29,74 @@ codeunit 50006 "SDH Custom Emails"
         Email.OpenInEditor(EmailMessage, EmailScenrio::Default);
         //Email.Send(EmailMessage, EmailScenrio::Default);
     end;
+
+    //Sending Purchase Order Emails
+    procedure SendPurchaseOrderEmail(PurchaseHeader: Record "Purchase Header")
+    var
+        Selection, DefaultSelection : Integer;
+        EmailTypeQst: Label 'E-Mail Item,E-Mail Message';
+    begin
+        DefaultSelection := 1;
+        Selection := StrMenu(EmailTypeQst, DefaultSelection);
+
+        Case Selection of
+            1:
+                SendPurchaseOrderWithEmailItem(PurchaseHeader);
+            2:
+                SendPurchaseOrderWithEmailMessage(PurchaseHeader);
+        end;
+    end;
+
+    local procedure SendPurchaseOrderWithEmailItem(PurchaseHeader: Record "Purchase Header")
+    var
+        TempEmailItem: Record "Email Item" temporary;
+        EmailSubjectBody: Codeunit "SDH Email Subject Body";
+        EmailScenrio: Enum "Email Scenario";
+        Selection, DefaultSelection : Integer;
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body';
+    begin
+        TempEmailItem."Send to" := 'postsaurav@gmail.com';
+        TempEmailItem."Subject" := EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader);
+
+        DefaultSelection := 1;
+        Selection := StrMenu(EmailBodyTypeQst, DefaultSelection);
+
+        Case Selection of
+            1:
+                TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderEmailBody(PurchaseHeader));
+            2:
+                TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderHtmlEmailBody(PurchaseHeader));
+            3:
+                TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderDetailedHtmlEmailBody(PurchaseHeader));
+        end;
+        TempEmailItem.Send(false, EmailScenrio::"Purchase Order");
+    end;
+
+    local procedure SendPurchaseOrderWithEmailMessage(PurchaseHeader: Record "Purchase Header")
+    var
+        EmailMessage: Codeunit "Email Message";
+        EmailSubjectBody: Codeunit "SDH Email Subject Body";
+        Email: Codeunit Email;
+        EmailScenrio: Enum "Email Scenario";
+        Selection, DefaultSelection : Integer;
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body';
+    begin
+        DefaultSelection := 1;
+        Selection := StrMenu(EmailBodyTypeQst, DefaultSelection);
+
+        Case Selection of
+            1:
+                EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
+        EmailSubjectBody.GeneratePurchaseOrderEmailBody(PurchaseHeader), true);
+            2:
+                EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
+        EmailSubjectBody.GeneratePurchaseOrderHtmlEmailBody(PurchaseHeader), true);
+            3:
+                EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
+        EmailSubjectBody.GeneratePurchaseOrderDetailedHtmlEmailBody(PurchaseHeader), true);
+        end;
+
+
+        Email.OpenInEditor(EmailMessage, EmailScenrio::Default);
+    end;
 }
