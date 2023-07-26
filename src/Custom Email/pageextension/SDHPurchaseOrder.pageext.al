@@ -1,4 +1,4 @@
-pageextension 50005 "SDH Email Account" extends "Email Accounts"
+pageextension 50006 "SDH Purchase Order" extends "Purchase Order"
 {
     actions
     {
@@ -7,14 +7,14 @@ pageextension 50005 "SDH Email Account" extends "Email Accounts"
             action(SDHSimpleEmail)
             {
                 ApplicationArea = All;
-                Caption = 'Sample Email';
-                Image = Email;
+                Caption = 'Purchase Order Email';
                 ToolTip = 'Executes the Sample Email action.';
+                Image = Email;
                 trigger OnAction()
                 var
                     SDHCustomEmail: Codeunit "SDH Custom Emails";
                 begin
-                    SDHCustomEmail.SendSimpleEmail();
+                    SDHCustomEmail.SendPurchaseOrderEmail(Rec);
                 end;
             }
         }
