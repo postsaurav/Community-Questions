@@ -53,7 +53,7 @@ codeunit 50006 "SDH Custom Emails"
         EmailSubjectBody: Codeunit "SDH Email Subject Body";
         EmailScenrio: Enum "Email Scenario";
         Selection, DefaultSelection : Integer;
-        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body';
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body';
     begin
         TempEmailItem."Send to" := 'postsaurav@gmail.com';
         TempEmailItem."Subject" := EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader);
@@ -68,6 +68,8 @@ codeunit 50006 "SDH Custom Emails"
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderHtmlEmailBody(PurchaseHeader));
             3:
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderDetailedHtmlEmailBody(PurchaseHeader));
+            4:
+                TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader));
         end;
         TempEmailItem.Send(false, EmailScenrio::"Purchase Order");
     end;
@@ -79,7 +81,7 @@ codeunit 50006 "SDH Custom Emails"
         Email: Codeunit Email;
         EmailScenrio: Enum "Email Scenario";
         Selection, DefaultSelection : Integer;
-        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body';
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body';
     begin
         DefaultSelection := 1;
         Selection := StrMenu(EmailBodyTypeQst, DefaultSelection);
@@ -94,6 +96,9 @@ codeunit 50006 "SDH Custom Emails"
             3:
                 EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
         EmailSubjectBody.GeneratePurchaseOrderDetailedHtmlEmailBody(PurchaseHeader), true);
+            4:
+                EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
+        EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader), true);
         end;
 
 
