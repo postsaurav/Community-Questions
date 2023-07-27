@@ -94,4 +94,49 @@ codeunit 50007 "SDH Email Subject Body"
          CompanyInformation."Country/Region Code" + '</br>' + CompanyInformation."Phone No." + '</br>' +
          CompanyInformation."E-Mail";
     end;
+
+    procedure GeneratePurchaseOrderEmailBodyReport(PurchaseHeader: Record "Purchase Header") BodyText: Text
+    var
+        ReportLayoutSelection: Record "Report Layout Selection";
+        TempBlob: Codeunit "Temp Blob";
+        PurchaseHeaderRecordRef: RecordRef;
+        ReportInStream: InStream;
+        ReportOutStream: OutStream;
+        LayoutCode: Code[20];
+        ReportId: Integer;
+    begin
+        TempBlob.CreateOutStream(ReportOutStream);
+        PurchaseHeaderRecordRef := SetPurchaseRecordRef(PurchaseHeader);
+        ReportLayoutSelection := GetPurchOrderReportandLayoutCode(ReportId, LayoutCode);
+
+        ReportLayoutSelection.SetTempLayoutSelected(LayoutCode);
+        Report.SaveAs(ReportId, '', ReportFormat::Html, ReportOutStream, PurchaseHeaderRecordRef);
+        ReportLayoutSelection.SetTempLayoutSelected('');
+
+        TempBlob.CreateInStream(ReportInStream);
+        ReportInStream.ReadText(BodyText);
+    end;
+
+    local procedure SetPurchaseRecordRef(PurchaseHeader: Record "Purchase Header") ReturnRecordRef: RecordRef
+    var
+        PurchaseHeader2: Record "Purchase Header";
+    begin
+        PurchaseHeader2.SetRange("Document Type", PurchaseHeader."Document Type");
+        PurchaseHeader2.SetRange("No.", PurchaseHeader."No.");
+        PurchaseHeader2.Findfirst();
+        ReturnRecordRef.GetTable(PurchaseHeader2);
+    end;
+
+    local procedure GetPurchOrderReportandLayoutCode(var ReportId: Integer; var LayoutCode: Code[20]) ReportLayoutSelection: Record "Report Layout Selection"
+    var
+        Reportselections: Record "Report Selections";
+    begin
+        Reportselections.SetRange(Usage, Reportselections.Usage::"P.Order");
+        Reportselections.SetRange("Use for Email Body", true);
+        if Reportselections.Findfirst() then begin
+            LayoutCode := Reportselections."Email Body Layout Code";
+            ReportId := Reportselections."Report ID";
+            ReportLayoutSelection.Get(ReportId, CompanyName);
+        end;
+    end;
 }
