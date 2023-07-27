@@ -107,7 +107,7 @@ codeunit 50007 "SDH Email Subject Body"
     begin
         TempBlob.CreateOutStream(ReportOutStream);
         PurchaseHeaderRecordRef := SetPurchaseRecordRef(PurchaseHeader);
-        ReportLayoutSelection := GetPurchOrderReportandLayoutCode(ReportId, LayoutCode);
+        ReportLayoutSelection := GetPurchOrderReportandLayoutCode(ReportId, LayoutCode, false);
 
         ReportLayoutSelection.SetTempLayoutSelected(LayoutCode);
         Report.SaveAs(ReportId, '', ReportFormat::Html, ReportOutStream, PurchaseHeaderRecordRef);
@@ -117,7 +117,7 @@ codeunit 50007 "SDH Email Subject Body"
         ReportInStream.ReadText(BodyText);
     end;
 
-    local procedure SetPurchaseRecordRef(PurchaseHeader: Record "Purchase Header") ReturnRecordRef: RecordRef
+    procedure SetPurchaseRecordRef(PurchaseHeader: Record "Purchase Header") ReturnRecordRef: RecordRef
     var
         PurchaseHeader2: Record "Purchase Header";
     begin
@@ -127,16 +127,20 @@ codeunit 50007 "SDH Email Subject Body"
         ReturnRecordRef.GetTable(PurchaseHeader2);
     end;
 
-    local procedure GetPurchOrderReportandLayoutCode(var ReportId: Integer; var LayoutCode: Code[20]) ReportLayoutSelection: Record "Report Layout Selection"
+    procedure GetPurchOrderReportandLayoutCode(var ReportId: Integer; var LayoutCode: Code[20]; IsAttachment: Boolean) ReportLayoutSelection: Record "Report Layout Selection"
     var
         Reportselections: Record "Report Selections";
     begin
+        Reportselections.Reset();
         Reportselections.SetRange(Usage, Reportselections.Usage::"P.Order");
-        Reportselections.SetRange("Use for Email Body", true);
+        if IsAttachment then
+            Reportselections.SetRange("Use for Email Attachment", true)
+        else
+            Reportselections.SetRange("Use for Email Body", true);
         if Reportselections.Findfirst() then begin
             LayoutCode := Reportselections."Email Body Layout Code";
             ReportId := Reportselections."Report ID";
-            ReportLayoutSelection.Get(ReportId, CompanyName);
+            if ReportLayoutSelection.Get(ReportId, CompanyName) then;
         end;
     end;
 }
