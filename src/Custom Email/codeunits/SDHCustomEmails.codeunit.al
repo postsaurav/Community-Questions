@@ -72,6 +72,7 @@ codeunit 50006 "SDH Custom Emails"
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader));
         end;
         AddAttachmentToPurchaseOrderEmail(TempEmailItem, PurchaseHeader);
+        AddRelatedTable(TempEmailItem, PurchaseHeader);
         TempEmailItem.Send(false, EmailScenrio::"Purchase Order");
     end;
 
@@ -103,6 +104,7 @@ codeunit 50006 "SDH Custom Emails"
         end;
 
         AddAttachmentToPurchaseOrderEmail(EmailMessage, PurchaseHeader);
+        AddRelatedTable(Email, EmailMessage, PurchaseHeader);
         Email.OpenInEditor(EmailMessage, EmailScenrio::Default);
     end;
 
@@ -158,5 +160,44 @@ codeunit 50006 "SDH Custom Emails"
 
         TempBlob.CreateInStream(ReportInStream);
         EmailMessage.AddAttachment(StrSubstNo(AttachmentFileNameLbl, PurchaseHeader."No."), '', ReportInStream);
+    end;
+
+    local procedure AddRelatedTable(var TempEmailItem: Record "Email Item" temporary; PurchaseHeader: Record "Purchase Header")
+    var
+        Vendor: Record Vendor;
+        Location: Record Location;
+        SourceTables: List of [Integer];
+        SourceIDs: List of [Guid];
+        SourceRelationTypes: List of [Integer];
+    begin
+        Vendor.Get(PurchaseHeader."Buy-from Vendor No.");
+
+        SourceTables.Add(Database::"Purchase Header");
+        SourceIDs.Add(PurchaseHeader.SystemId);
+        SourceRelationTypes.Add(Enum::"Email Relation Type"::"Primary Source".AsInteger());
+
+        SourceTables.Add(Database::"Vendor");
+        SourceIDs.Add(Vendor.SystemId);
+        SourceRelationTypes.Add(Enum::"Email Relation Type"::"Related Entity".AsInteger());
+
+        if Location.Get(PurchaseHeader."Location Code") then begin
+            SourceTables.Add(Database::"Location");
+            SourceIDs.Add(Location.SystemId);
+            SourceRelationTypes.Add(Enum::"Email Relation Type"::"Related Entity".AsInteger());
+        end;
+
+        TempEmailItem.SetSourceDocuments(SourceTables, SourceIDs, SourceRelationTypes);
+    end;
+
+    local procedure AddRelatedTable(var Email: Codeunit Email; EmailMessage: Codeunit "Email Message"; PurchaseHeader: Record "Purchase Header")
+    var
+        Vendor: Record Vendor;
+        Location: Record Location;
+    begin
+        Vendor.Get(PurchaseHeader."Buy-from Vendor No.");
+        Email.AddRelation(EmailMessage, Database::"Purchase Header", PurchaseHeader.SystemId, Enum::"Email Relation Type"::"Primary Source", Enum::"Email Relation Origin"::"Compose Context");
+        Email.AddRelation(EmailMessage, Database::"Vendor", Vendor.SystemId, Enum::"Email Relation Type"::"Related Entity", Enum::"Email Relation Origin"::"Compose Context");
+        if Location.Get(PurchaseHeader."Location Code") then
+            Email.AddRelation(EmailMessage, Database::"Location", Location.SystemId, Enum::"Email Relation Type"::"Related Entity", Enum::"Email Relation Origin"::"Compose Context");
     end;
 }
