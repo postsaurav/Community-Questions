@@ -72,6 +72,7 @@ codeunit 50006 "SDH Custom Emails"
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader));
         end;
         AddAttachmentToPurchaseOrderEmail(TempEmailItem, PurchaseHeader);
+        AddMasterAttachmentExcelToPurchaseOrderEmail(TempEmailItem);
         AddRelatedTable(TempEmailItem, PurchaseHeader);
         TempEmailItem.Send(false, EmailScenrio::"Purchase Order");
     end;
@@ -104,6 +105,7 @@ codeunit 50006 "SDH Custom Emails"
         end;
 
         AddAttachmentToPurchaseOrderEmail(EmailMessage, PurchaseHeader);
+        AddMasterAttachmentExcelToPurchaseOrderEmail(EmailMessage);
         AddRelatedTable(Email, EmailMessage, PurchaseHeader);
         Email.OpenInEditor(EmailMessage, EmailScenrio::Default);
     end;
@@ -160,6 +162,32 @@ codeunit 50006 "SDH Custom Emails"
 
         TempBlob.CreateInStream(ReportInStream);
         EmailMessage.AddAttachment(StrSubstNo(AttachmentFileNameLbl, PurchaseHeader."No."), '', ReportInStream);
+    end;
+
+    local procedure AddMasterAttachmentExcelToPurchaseOrderEmail(var TempEmailItem: Record "Email Item" temporary)
+    var
+        SDHExcelMultipleSheets: Codeunit "SDH Excel Multiple Sheets";
+        TempBlob: Codeunit "Temp Blob";
+        ReportInStream: InStream;
+        ReportOutStream: OutStream;
+    begin
+        TempBlob.CreateOutStream(ReportOutStream);
+        TempBlob.CreateInStream(ReportInStream);
+        SDHExcelMultipleSheets.SaveExcelInStream(ReportOutStream);
+        TempEmailItem.AddAttachment(ReportInStream, 'Master Data List.xlsx');
+    end;
+
+    local procedure AddMasterAttachmentExcelToPurchaseOrderEmail(var EmailMessage: Codeunit "Email Message")
+    var
+        SDHExcelMultipleSheets: Codeunit "SDH Excel Multiple Sheets";
+        TempBlob: Codeunit "Temp Blob";
+        ReportInStream: InStream;
+        ReportOutStream: OutStream;
+    begin
+        TempBlob.CreateOutStream(ReportOutStream);
+        TempBlob.CreateInStream(ReportInStream);
+        SDHExcelMultipleSheets.SaveExcelInStream(ReportOutStream);
+        EmailMessage.AddAttachment('Master Data List.xlsx', '', ReportInStream);
     end;
 
     local procedure AddRelatedTable(var TempEmailItem: Record "Email Item" temporary; PurchaseHeader: Record "Purchase Header")
