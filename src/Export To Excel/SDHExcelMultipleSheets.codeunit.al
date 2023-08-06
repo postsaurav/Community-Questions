@@ -17,6 +17,23 @@ codeunit 50008 "SDH Excel Multiple Sheets"
         CreateExcelBook();
     end;
 
+    procedure SaveExcelInStream(var ResultStream: OutStream)
+    begin
+        TempExcelBuffer.DeleteAll();
+        TempExcelBuffer.ClearNewRow();
+
+        ExportCustomerData();
+        CreateExcelSheet('Customer', true);
+
+        ExportVendorData();
+        CreateExcelSheet('Vendor', false);
+
+        ExportItemData();
+        CreateExcelSheet('Item', false);
+
+        SaveToStream(ResultStream);
+    end;
+
     local procedure ExportCustomerData()
     var
         Customer: Record Customer;
@@ -123,6 +140,13 @@ codeunit 50008 "SDH Excel Multiple Sheets"
         TempExcelBuffer.CloseBook();
         TempExcelBuffer.SetFriendlyFilename('Master Data List');
         TempExcelBuffer.OpenExcel();
+    end;
+
+    local procedure SaveToStream(var ResultStream: OutStream)
+    begin
+        TempExcelBuffer.CloseBook();
+        TempExcelBuffer.SetFriendlyFilename('Master Data List');
+        TempExcelBuffer.SaveToStream(ResultStream, true);
     end;
 
     var
