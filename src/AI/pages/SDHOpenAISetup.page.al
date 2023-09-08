@@ -80,7 +80,7 @@ page 50004 "SDH Open AI Setup"
                     MultiLine = true;
                     Caption = 'Input';
                 }
-                field(ExecuteLbl; ExecuteLbl)
+                field(ExecuteLbl; ExecuteOldLbl)
                 {
                     ShowCaption = false;
                     Editable = false;
@@ -89,7 +89,19 @@ page 50004 "SDH Open AI Setup"
                         OpenAIMgmt: Codeunit "SDH Open AI Mgmt.";
                     begin
                         if Input <> '' then
-                            OpenAIMgmt.GetResponseFromChatGPT(Input, Output);
+                            OpenAIMgmt.GetResponseFromChatGPT(Input, false, Output);
+                    end;
+                }
+                field(ExecuteNewLbl; ExecuteNewLbl)
+                {
+                    ShowCaption = false;
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        OpenAIMgmt: Codeunit "SDH Open AI Mgmt.";
+                    begin
+                        if Input <> '' then
+                            OpenAIMgmt.GetResponseFromChatGPT(Input, true, Output);
                     end;
                 }
                 field(Output; Output)
@@ -114,5 +126,6 @@ page 50004 "SDH Open AI Setup"
 
     var
         Input, Output : Text;
-        ExecuteLbl: Label 'Execute';
+        ExecuteOldLbl: Label 'Execute Old';
+        ExecuteNewLbl: Label 'Execute New';
 }
