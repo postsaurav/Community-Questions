@@ -26,6 +26,22 @@ codeunit 50011 "SDH Open AI Mgmt."
             Error('%1', OutputString);
     end;
 
+    procedure GeneratePurchaseOrderEmailBodyFromChatGPT(PurchaseHeader: Record "Purchase Header"): Text
+    var
+        CompanyInformation: Record "Company Information";
+        InputLbl: Label 'Write a email, in html format, with professional langauge, regarding an order %2 to a vendor %1. Buyer company Name is %3 , Buyer company address is %4 and Buyer company email is %5';
+        Input, Response : Text;
+    begin
+        CompanyInformation.get();
+
+        case PurchaseHeader."Document Type" of
+            PurchaseHeader."Document Type"::Order:
+                Input := StrSubstNo(InputLbl, PurchaseHeader."Buy-from Vendor Name", PurchaseHeader."No.", CompanyInformation.Name, CompanyInformation.Address, CompanyInformation."E-Mail");
+        end;
+        GetResponseFromChatGPT(Input, true, Response);
+        exit(Response);
+    end;
+
     local procedure SetChatGPTBody(Input: Text; NewModel: Boolean; var ContentText: Text)
     var
         ChatGPTBody: JsonObject;
