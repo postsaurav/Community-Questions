@@ -51,9 +51,10 @@ codeunit 50006 "SDH Custom Emails"
     var
         TempEmailItem: Record "Email Item" temporary;
         EmailSubjectBody: Codeunit "SDH Email Subject Body";
+        OpenAIMgmt: Codeunit "SDH Open AI Mgmt.";
         EmailScenrio: Enum "Email Scenario";
         Selection, DefaultSelection : Integer;
-        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body';
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body,AI Email Body';
     begin
         TempEmailItem."Send to" := 'postsaurav@gmail.com';
         TempEmailItem."Subject" := EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader);
@@ -70,6 +71,8 @@ codeunit 50006 "SDH Custom Emails"
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderDetailedHtmlEmailBody(PurchaseHeader));
             4:
                 TempEmailItem.SetBodyText(EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader));
+            5:
+                TempEmailItem.SetBodyText(OpenAIMgmt.GeneratePurchaseOrderEmailBodyFromChatGPT(PurchaseHeader));
         end;
         AddAttachmentToPurchaseOrderEmail(TempEmailItem, PurchaseHeader);
         AddMasterAttachmentExcelToPurchaseOrderEmail(TempEmailItem);
@@ -81,10 +84,11 @@ codeunit 50006 "SDH Custom Emails"
     var
         EmailMessage: Codeunit "Email Message";
         EmailSubjectBody: Codeunit "SDH Email Subject Body";
+        OpenAIMgmt: Codeunit "SDH Open AI Mgmt.";
         Email: Codeunit Email;
         EmailScenrio: Enum "Email Scenario";
         Selection, DefaultSelection : Integer;
-        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body';
+        EmailBodyTypeQst: Label 'Basic E-Mail Body,HTML E-Mail Body,Detailed HTML E-Mail Body,Word Layout Body,AI Email Body';
     begin
         DefaultSelection := 1;
         Selection := StrMenu(EmailBodyTypeQst, DefaultSelection);
@@ -102,6 +106,9 @@ codeunit 50006 "SDH Custom Emails"
             4:
                 EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
         EmailSubjectBody.GeneratePurchaseOrderEmailBodyReport(PurchaseHeader), true);
+            5:
+                EmailMessage.Create('postsaurav@gmail.com', EmailSubjectBody.GeneratePurchaseOrderEmailSubject(PurchaseHeader),
+            OpenAIMgmt.GeneratePurchaseOrderEmailBodyFromChatGPT(PurchaseHeader), true);
         end;
 
         AddAttachmentToPurchaseOrderEmail(EmailMessage, PurchaseHeader);
