@@ -15,5 +15,15 @@ permissionset 50000 "SDH Permissions"
         report "SDH Expiring Items" = X,
         codeunit "SDH Customize Email Subject" = X,
         codeunit "SDH Email Expiring Items" = X,
-        codeunit "SDH Export Json" = X;
+        codeunit "SDH Export Json" = X,
+        tabledata "SDH Open AI Setup" = RIMD,
+        table "SDH Open AI Setup" = X,
+        report "SDH Customer Export" = X,
+        codeunit "SDH BC-CRM Custom Fields" = X,
+        codeunit "SDH Custom Emails" = X,
+        codeunit "SDH Email Subject Body" = X,
+        codeunit "SDH Excel Multiple Sheets" = X,
+        codeunit "SDH Open AI Mgmt." = X,
+        page "SDH Email Send Overloads" = X,
+        page "SDH Open AI Setup" = X;
 }
