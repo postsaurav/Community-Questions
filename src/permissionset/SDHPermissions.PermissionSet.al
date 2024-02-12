@@ -25,5 +25,7 @@ permissionset 50000 "SDH Permissions"
         codeunit "SDH Excel Multiple Sheets" = X,
         codeunit "SDH Open AI Mgmt." = X,
         page "SDH Email Send Overloads" = X,
-        page "SDH Open AI Setup" = X;
+        page "SDH Open AI Setup" = X,
+        report "SDH RDLC Multiple Sheets" = X,
+        page "SDH Prompt Dialog" = X;
 }

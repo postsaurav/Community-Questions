@@ -4,8 +4,8 @@
   "publisher": "Saurav Dhyani",
   "brief": "This repo will have suggestions for answers to community questions.",
   "description": "",
-  "version": "21.0.0.0",
-  "runtime": "10.0",
+  "version": "23.0.0.0",
+  "runtime": "12.1",
   "privacyStatement": "https://www.sauravdhyani.com/",
   "EULA": "https://www.sauravdhyani.com/",
   "help": "https://www.sauravdhyani.com/contact/",
@@ -14,8 +14,8 @@
   "logo": "image/sauravdhyani.png",
   "dependencies": [],
   "screenshots": [],
-  "platform": "14.0.0.0",
-  "application": "14.0.0.0",
+  "platform": "23.0.0.0",
+  "application": "23.0.0.0",
   "idRanges": [
     {
       "from": 50000,
