@@ -1,3 +1,0 @@
-Other Exended Objects 
-1. tableextension 50000 "SDH Customer" extends Customer
-2. pageextension 50000 "SDH Customer Card" extends "Customer Card"
